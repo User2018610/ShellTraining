@@ -6,4 +6,11 @@
 
 * cat /dev/null > test.log
 
+-----
+
+查看当前系统的默认shell的两种方式：
+
+* echo $SHELL
+
+* grep root /etc/passwd
 
