@@ -1,0 +1,9 @@
+清空日志文件的三种方式：
+
+* echo "" > test.log
+
+* > test.log
+
+* cat /dev/null > test.log
+
+
