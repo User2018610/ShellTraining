@@ -5,7 +5,7 @@
 #将会把这些信息保存到一个log file中.
 #
 
-out='out'
+out='../out'
 lgf='log.log'
 path=$out/$lgf
 #echo path===$path
