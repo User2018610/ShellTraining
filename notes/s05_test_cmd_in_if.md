@@ -42,11 +42,50 @@ str1 > str2     =====> str1 >  str2
 -z str1         =====> len(str1) == 0
 
 ```
+> 字符串的大小比较 `>`与 `<` 会被理解成重定向操作，所以比较字符串需要转义。比如：`[ $str1 \> $str2 ]` ,`[ $str1 \< $str2 ]`
 
+* 文件比较
 
+```
+-d file             ====> 判断 file 是否存在是一个目录
 
+-e file             ====> 判断 file 是否存在[存在为真]
 
+-f file             ====> 判断 file 是否存在并且是一个文件
 
+-r file             ====> 判断 file 是否存在并且可读
+
+-s file             ====> 判断 file 是否存在并且非空[非空为真]
+
+-w file             ====> 判断 file 是否存在并且可写
+
+-x file             ====> 判断 file 是否存在并且可执行
+
+-O file             ====> 判断 file 是否存在并属当前用户所有
+
+-G file             ====> 判断 file 是否存在并且默认组与当前用户相同
+
+file1 -nt file2     ====> 判断 file1 是否比 file2 新 [不会检查文件是否存在]
+
+file1 -ot file2     ====> 判断 file1 是否比 file2 旧 [不会检查文件是否存在]
+
+```
+
+* 复合逻辑表达式
+
+```
+[ condition1 ] && [ condition2 ]
+[ condition1 ] || [ condition2 ]
+
+```
+
+* 数字相加
+
+```
+a=12
+b=13
+c=$[$a+$b]
+```
 
 
 
@@ -73,6 +112,88 @@ fi
 ```
 
 > 输出了 else 的内容。
+
+字符串比较的例子：
+
+```
+#! /bin/bash
+
+# 字符串比较
+
+var="c9at"
+
+if [ $USER = $var  ]
+then
+    echo "当前用户是 $var"
+else
+    echo "当前用户不是 $var"
+fi
+
+var2="c9AT"
+
+if [ $var \> $var2  ]
+then
+    echo "$var > $var2"
+else
+    echo "$var <= $var2"
+fi
+```
+
+文件比较的例子：
+
+```
+#! /bin/bash
+# 检查文件
+
+path="/home"
+if [ -e $path  ]
+then
+    echo "$path exists"
+    if [ -d $path ]
+    then
+        echo "$path is a dir"
+        if [ -r $path ]
+        then
+            echo "$path can be read"
+            if [ -w $path ]
+            then
+                echo "$path can be write"
+            else
+                echo "$path can not be write"
+            fi
+        else
+            echo "$path can not read"
+        fi
+    else
+        echo "$path is not a dir"
+    fi
+else
+    echo "$path not exists"
+fi
+```
+
+复合条件判断的例子：
+
+```
+#! /bin/bash
+
+# 复合条件表达式 [ condition1  ] && [ condition2  ]
+# 复合条件表达式 [ condition1  ] || [ condition2  ]
+
+
+a=12
+b=13
+c=$[$a+$b]
+
+echo "$a+$b==$[ $a + $b  ]"
+
+if [ $a -lt $b ] && [ $c -eq 25 ]
+then
+    echo "c=a+b=$c"
+else
+    echo "$a -ge $b"
+fi
+```
 	
 	
 	
