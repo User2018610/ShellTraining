@@ -4,4 +4,5 @@
 * [shell高级编程 | 百度网盘](/Users/cat/Downloads/shell编程精讲)
 * [1-100 之前0061 结束，0062 还没有开始](/Users/cat/Downloads/shell编程精讲/linux教程/1-100)
 * update subline text3
+* 《Linux命令行与Shell编程大全》
 
