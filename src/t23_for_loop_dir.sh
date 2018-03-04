@@ -11,12 +11,12 @@ then
     #echo "=====$path"
     for f in $path
     do
-        if [ -f $f ]
+        if [ -f "$f" ]    # 使用 "$f" 而不是 $f ，是兼容带空格的文件名
         then
-            echo "$f is a file"
-        elif [ -d $f ]
+            echo "FILE: $f"
+        elif [ -d "$f" ]
         then
-            echo "$f is a dir"
+            echo "DIR:  $f"
         else
             echo "$f 不是文件，也不算目录？"
             file $f
