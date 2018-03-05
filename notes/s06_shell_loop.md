@@ -13,6 +13,20 @@ do
 done
 ```
 
+* 在shell脚本中，你可以对循环的输出使用管道或进行重定向。这可以通过在done命令 之后添加一个处理命令来实现。
+
+```
+    for file in /home/rich/*
+     do
+       if [ -d "$file" ]
+       then
+          echo "$file is a directory"
+       elif
+          echo "$file is a file"
+       fi
+	done > output.txt
+```
+
 > 小插曲，拼接字符串的方式
 
 ```
