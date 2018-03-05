@@ -20,6 +20,13 @@ var="abcd"
 var = $var"ef"  # now var == "abcdef"
 ```
 
+> 小插曲，正数求值的方式
+
+```
+a=12
+b=13
+c=$[ $a * $b ]
+```
 
 for 循环的例子：
 
