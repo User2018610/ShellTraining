@@ -29,17 +29,52 @@
 			> 注意：这种方式获取返回值必须是函数一调用立即去获取`$?`的值
 			
 			> return 的值只能在 0-255 之间，超出了没有效果
+		* 通过在函数最后使用`echo`语句返回
+		
+		```
+		function play {
+			echo "123" # 函数返回值 
+		}
+		result=$(play) # 获取函数返回值
+		```
 2. 在函数中使用变量
 	* 向函数传递参数
 	
 	> bash shell会将函数当作小型脚本来对待。这意味着你可以像普通脚 本那样向函数传递参数.
 	
-	> **函数名会在$0 变量中定义，函数命令行上的任何参数都会通过$1、$2等定义**
-	
-	
-	* xx
+	> *<del>函数名会在$0 变量中定义</del>[**这句话不对，已验证]**,函数命令行上的任何参数都会通过$1、$2等定义*
 
-3. 他
+	格式：`functionName args`
+	
+	```
+	# 向函数传递参数
+	function adding {
+	    if [ "$#" -eq 1 ]
+	    then
+	        echo "$[ $1 + $1  ]"
+	    elif [ "$#" -eq 2 ]
+	    then
+	        echo "$[ $1 + $2 ]"
+	    else
+	        echo -1
+	    fi
+	}
+	
+	sum=$(adding 12 9) # 给函数传递参数
+	echo "sum of 12 and 9 is :$sum"
+
+	```
+	
+	* 在函数中处理变量
+	
+	> 变量作用域是变量可见的区域。函数 中定义的变量与普通变量的作用域不同。也就是说，对脚本的其他部分而言，它们是隐藏的。
+函数使用两种类型的变量:  全局变量 ； 局部变量
+	
+	> **全局变量是在shell脚本中任何地方都有效的变量**
+	
+	* x
+
+3. 刚刚
 4. 我
 5. 哦
 
@@ -92,5 +127,49 @@ function doublling {
 result=$(doublling)
 
 echo "你的回答是: $result"
+
+```
+函数参数与脚本参数区分的例子：
+
+```
+#! /bin/bash
+
+# 函数参数与脚本的参数并不是一回事
+# 不能在函数中直接使用脚本参数
+
+if [ $# -lt 2  ]
+then
+    echo "at least, i need two arguments"
+    exit 3
+fi
+function add {
+    echo "$[ $1 + $2 ]"
+}
+
+echo "the result of function add is: $(add)" # 这样会报错
+
+#echo "the result of function add is: $(add $1 $2)" # 这样就正常了
+
+```
+
+*证实`$0`并不能获取函数名的例子：*
+
+```
+#! /bin/bash
+function play {
+    echo "$0"
+}
+
+func_name=$(play)
+
+echo "func_name is $func_name" # 实际获取的是文件名，不是函数名
+# 在Ubuntu 下面也是如此，并没有输出函数名
+
+function hi {
+    echo "$@"
+}
+
+echo "显示函数hi 的返回值：$(hi a b c de 1024 x)"
+# 通过对函数中 $@ 的输出可以看到，并没有 $0 对应的值
 
 ```
