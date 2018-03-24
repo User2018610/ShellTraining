@@ -6,5 +6,8 @@ function play {
     echo "build your dream"
 }
 
+dir=$(basename $(pwd))
+
+echo current dir===$dir
 play
 echo "var=$var , num=$num"
