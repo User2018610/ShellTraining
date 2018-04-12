@@ -1,6 +1,6 @@
 #! /bin/bash
 
-for state in $(cat $1)  
+for state in $(cat $1)
  # 需要注意的是，这种方式并不是按行读取，遇到空格就next了
 do
     echo "state=$state"
